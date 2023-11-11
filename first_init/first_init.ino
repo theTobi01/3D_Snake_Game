@@ -1,13 +1,14 @@
 #include <Wire.h> // library for I2C communication
+int delayTime = 200;
+int clock = 1;
+int signal = 0;
+int wait = 20;
+
 
 void setup() {
   // configure Pins for switch register
   pinMode(0, OUTPUT); // D0
   pinMode(1, OUTPUT); // D1
-
-  int delayTime = 10;
-  int clock = 1;
-  int signal = 0;
 
   Wire.begin(); // join I2C bus as the master; no adress given, not necessary for master
 
@@ -53,29 +54,29 @@ void setup() {
   // setting GPA0 & GPB0 to 1 on each device
   Wire.beginTransmission(0x24);
   Wire.write(0x12); // GPIO A register
-  Wire.write(0x01); // set it to 00000001
+  Wire.write(0xFF); // set it to LLLLLLLH
   Wire.endTransmission();
   Wire.beginTransmission(0x24);
   Wire.write(0x13); // GPIO B register
-  Wire.write(0x00); // set it to 00000001
+  Wire.write(0xFF); // set it to 00000001
   Wire.endTransmission();
 
   Wire.beginTransmission(0x26);
   Wire.write(0x12); 
-  Wire.write(0x00); 
+  Wire.write(0xFF); 
   Wire.endTransmission();
   Wire.beginTransmission(0x26);
   Wire.write(0x13); 
-  Wire.write(0x00); 
+  Wire.write(0xFF); 
   Wire.endTransmission();
 
   Wire.beginTransmission(0x27);
   Wire.write(0x12); 
-  Wire.write(0x00); 
+  Wire.write(0xFF); 
   Wire.endTransmission();
   Wire.beginTransmission(0x27);
   Wire.write(0x13); 
-  Wire.write(0x00); 
+  Wire.write(0xFE); 
   Wire.endTransmission();
 
 }
@@ -94,14 +95,89 @@ void loop() {
   digitalWrite(clock, HIGH);
   delay(delayTime);
   digitalWrite(clock, LOW);
-  digitalWrite(signal, LOW);
-  delay(delayTime);
-  digitalWrite(clock, HIGH);
-  delay(delayTime);
-  digitalWrite(clock, LOW);
-  delay(delayTime);
-  digitalWrite(clock, HIGH);
-  delay(delayTime);
-  digitalWrite(clock, LOW);
+  //sigitalWrite(signal, LOW);
+  for (int i = 0; i < wait; i++){
+    digitalWrite(clock, HIGH);
+    delay(delayTime);
+    digitalWrite(clock, LOW);
+    delay(delayTime);
+  }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xFD); // set it to LLLLLLHL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xFB); // set it to LLLLLHLL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xF7); // set it to LLLLHLLL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xEF); // set it to LLLHLLLL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xDF); // set it to LLHLLLLL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0xBF); // set it to LHLLLLLL
+  // Wire.endTransmission();
+
+  // for (int i = 0; i < wait; i++){
+  //   digitalWrite(clock, HIGH);
+  //   delay(delayTime);
+  //   digitalWrite(clock, LOW);
+  //   delay(delayTime);
+  // }
+
+  // Wire.beginTransmission(0x27);
+  // Wire.write(0x13); // GPIO A register
+  // Wire.write(0x7F); // set it to HLLLLLLL
+  // Wire.endTransmission();
 
 }
