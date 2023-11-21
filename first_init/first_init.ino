@@ -36,6 +36,15 @@ void setup() {
   Wire.write(0x01); // IODIRB register
   Wire.write(0xC0); // set all of port B to outputs
   Wire.endTransmission();
+  // Setting the internal Pull-ups
+  Wire.beginTransmission(0x24);
+  Wire.write(0x06); // GPPUA register
+  Wire.write(0x03); // 0000 0011 (Pull-up on A0 and A1)
+  Wire.endTransmission();
+  Wire.beginTransmission(0x24);
+  Wire.write(0x16); // IODIRA register
+  Wire.write(0xC0); // 1100 0000 Pull-up on B6 and B7
+  Wire.endTransmission();
 
   Wire.beginTransmission(0x26);
   Wire.write(0x00); // IODIRA register
@@ -45,6 +54,15 @@ void setup() {
   Wire.write(0x01); // IODIRB register
   Wire.write(0xC0); // set all of port B to outputs
   Wire.endTransmission();
+  // Setting the internal Pull-ups
+  Wire.beginTransmission(0x26);
+  Wire.write(0x06); // GPPUA register
+  Wire.write(0x03); // 0000 0011 (Pull-up on A0 and A1)
+  Wire.endTransmission();
+  Wire.beginTransmission(0x26);
+  Wire.write(0x16); // IODIRA register
+  Wire.write(0xC0); // 1100 0000 Pull-up on B6 and B7
+  Wire.endTransmission();
 
   Wire.beginTransmission(0x27);
   Wire.write(0x00); // IODIRA register
@@ -53,6 +71,15 @@ void setup() {
   Wire.beginTransmission(0x27);
   Wire.write(0x01); // IODIRB register
   Wire.write(0xC0); // set all of port B to outputs
+  Wire.endTransmission();
+  // Setting the internal Pull-ups
+  Wire.beginTransmission(0x27);
+  Wire.write(0x06); // GPPUA register
+  Wire.write(0x03); // 0000 0011 (Pull-up on A0 and A1)
+  Wire.endTransmission();
+  Wire.beginTransmission(0x27);
+  Wire.write(0x16); // IODIRA register
+  Wire.write(0xC0); // 1100 0000 Pull-up on B6 and B7
   Wire.endTransmission();
 
 
