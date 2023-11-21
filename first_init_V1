@@ -1,0 +1,90 @@
+#include <Wire.h> // library for I2C communication
+
+#define scl A4
+#define sda A5
+#define init 0     //IO0
+#define clk 1      //IO1
+
+#define IODIRA 0x00 //Define reading Register 
+#define IODIRB 0x01 //Define reading Register  
+
+#define GPIOA 0x12 //Define writing Register  
+#define GPIOB 0x13 //Define writing Register 
+
+#define GPPUA 0x0C //Define input Register  
+#define GPPUB 0x0D //Define input Register 
+
+#define ICLeft 0x27   //IC of left
+#define ICCenter 0x26 //IC of conter
+#define ICRight 0x24  //IC of right
+
+void setup() {
+Wire.begin();
+pinMode(scl, OUTPUT);
+pinMode(clk, OUTPUT);
+pinMode(init,OUTPUT);
+pinMode(clk, OUTPUT);
+Serial.begin(9600);
+
+setOUTPUT(ICLeft);
+setOUTPUT(ICCenter);
+setOUTPUT(ICRight);
+
+setPULLUP(ICLeft);
+setPULLUP(ICCenter);
+setPULLUP(ICRight);
+
+setALLONE(ICLeft);  
+setALLONE(ICCenter); 
+setALLONE(ICRight);  
+}
+
+void loop() {
+  //writeToLED(ICLEft, GPIOA, 0x0F) //0000 
+  
+}
+
+void writeToLED(int IC, int PORT, int hexaVALUE){
+ Wire.beginTransmission(IC);
+ Wire.write(PORT);
+ Wire.write(hexaVALUE);
+ Wire.endTransmission();
+}
+
+void setOUTPUT(int IC){ //defining OUTPUT
+  Wire.beginTransmission(IC);//1100 0000 B6->B0 OUTPUT for IODIRB
+  Wire.write(IODIRA);
+  Wire.write(0x03);  
+  Wire.endTransmission();
+  
+  Wire.beginTransmission(IC);//1100 0000 B6->B0 OUTPUT forIODIRB
+  Wire.write(IODIRB);
+  Wire.write(0xC0);  
+  Wire.endTransmission();
+}
+
+void setPULLUP(int IC){  //defining Reading INPUT
+  Wire.beginTransmission(IC); //0000 00011 A0 && A1 INPUT for register GPPUA
+  Wire.write(GPPUA);
+  Wire.write(0x03);  
+  Wire.endTransmission();
+
+  Wire.beginTransmission(IC); //1100 0000 B7 AND input for register IODIRB
+  Wire.write(GPPUB);
+  Wire.write(0xC0);  
+  Wire.endTransmission();
+}
+
+void setALLONE(int IC){ //Clear GPIO
+  Wire.beginTransmission(IC);//1111 1111 ALL ONE for register GPIOA
+  Wire.write(GPIOA);
+  Wire.write(0xFF);  
+  Wire.endTransmission();
+
+  Wire.beginTransmission(IC);//1111 1111 ALL ONE for register GPIOB
+  Wire.write(GPIOB);
+  Wire.write(0xFF);  
+  Wire.endTransmission();
+}
+
+ 
