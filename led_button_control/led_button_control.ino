@@ -1,7 +1,7 @@
 #include <Wire.h> // library for I2C communication
 
-#define scl A4
-#define sda A5
+#define scl A5
+#define sda A4
 #define init 0     //IO0
 #define clk 1      //IO1
 
@@ -53,6 +53,8 @@ void setup() {
   delay(delayTime);
   digitalWrite(clk, LOW);
 
+  clearAllLEDs();
+
 }
 
 void loop() {
@@ -90,5 +92,7 @@ void loop() {
   Wire.write(GPIOA);
   Wire.write(secondLeftRow);
   Wire.endTransmission();
+
+  // delay(1000);
 
 }

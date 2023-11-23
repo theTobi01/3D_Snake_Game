@@ -36,14 +36,17 @@ void configureIoExtenders() {
 
 void readAllButtons(){
   byte dataA, dataB;
+  uint16_t result;
   
   // read from IOEx1
   Wire.beginTransmission(IOEx1);
   Wire.write(GPIOA); // not sure why -> test if necessary
   Wire.endTransmission();
-  Wire.requestFrom(IOEx1, 2);
 
+  Wire.requestFrom(IOEx1, 1);
   dataA = Wire.read();
+
+  Wire.requestFrom(IOEx1, 1);
   dataB = Wire.read();
 
   Wire.endTransmission();
@@ -51,29 +54,35 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
+  Serial.print("Data 1A: ");
+  Serial.println(dataA, BIN);
+
+  Serial.print("Data 1B: ");
+  Serial.println(dataB, BIN);
+
   if ((dataA & 0x01) != 0) { // checking if bit 0 is 1
-    button7 = true;
+    button10 = false;
   } 
   else{
-    button7 = false;
+    button10 = true;
   }
   if ((dataA & 0x02) != 0) { // checking if bit 1 in 1
-    button10 = true;
+    button7 = false;
   } 
   else{
-    button10 = false;
+    button7 = true;
   }
-  if ((dataB & 0x07) != 0) {  // checking if bit 6 is 1
-    button1 = true;
-  } 
-  else{
+  if ((dataB & 0x70) != 0) {  // checking if bit 6 is 1
     button1 = false;
-  }
-  if ((dataB & 0x08) != 0) { // checking of bit 7 is 1
-    button4 = true;
   } 
   else{
+    button1 = true;
+  }
+  if ((dataB & 0x80) != 0) { // checking of bit 7 is 1
     button4 = false;
+  } 
+  else{
+    button4 = true;
   }
 
 
@@ -81,9 +90,11 @@ void readAllButtons(){
   Wire.beginTransmission(IOEx2);
   Wire.write(GPIOA); // not sure why -> test if necessary
   Wire.endTransmission();
-  Wire.requestFrom(IOEx2, 2);
 
+  Wire.requestFrom(IOEx2, 1);
   dataA = Wire.read();
+
+  Wire.requestFrom(IOEx2, 1);
   dataB = Wire.read();
 
   Wire.endTransmission();
@@ -91,29 +102,35 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
+  Serial.print("Data 2A: ");
+  Serial.println(dataA, BIN);
+
+  Serial.print("Data 2B: ");
+  Serial.println(dataB, BIN);
+
   if ((dataA & 0x01) != 0) {
-    button8 = true;
+    button11 = false;
   } 
   else{
-    button8 = false;
+    button11 = true;
   }
   if ((dataA & 0x02) != 0) {
-    button11 = true;
+    button8 = false;
   } 
   else{
-    button11 = false;
+    button8 = true;
   }
-  if ((dataB & 0x07) != 0) {
-    button2 = true;
-  } 
-  else{
+  if ((dataB & 0x70) != 0) {
     button2 = false;
-  }
-  if ((dataB & 0x08) != 0) {
-    button5 = true;
   } 
   else{
+    button2 = true;
+  }
+  if ((dataB & 0x80) != 0) {
     button5 = false;
+  } 
+  else{
+    button5 = true;
   }
 
 
@@ -121,9 +138,11 @@ void readAllButtons(){
   Wire.beginTransmission(IOEx3);
   Wire.write(GPIOA); // not sure why -> test if necessary
   Wire.endTransmission();
-  Wire.requestFrom(IOEx3, 2);
 
+  Wire.requestFrom(IOEx3, 1);
   dataA = Wire.read();
+
+  Wire.requestFrom(IOEx3, 1);
   dataB = Wire.read();
 
   Wire.endTransmission();
@@ -131,28 +150,63 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
+  Serial.print("Data 3A: ");
+  Serial.println(dataA, BIN);
+
+  Serial.print("Data 3B: ");
+  Serial.println(dataB, BIN);
+
   if ((dataA & 0x01) != 0) {
-    button9 = true;
+    button12 = false;
   } 
   else{
-    button9 = false;
+    button12 = true;
   }
   if ((dataA & 0x02) != 0) {
-    button12 = true;
+    button9 = false;
   } 
   else{
-    button12 = false;
+    button9 = true;
   }
-  if ((dataB & 0x07) != 0) {
-    button3 = true;
-  } 
-  else{
+  if ((dataB & 0x70) != 0) {
     button3 = false;
-  }
-  if ((dataB & 0x08) != 0) {
-    button6 = true;
   } 
   else{
-    button6 = false;
+    button3 = true;
   }
+  if ((dataB & 0x80) != 0) {
+    button6 = false;
+  } 
+  else{
+    button6 = true;
+  }
+}
+
+void clearAllLEDs(){
+  Wire.beginTransmission(IOEx1);
+  Wire.write(GPIOA);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+  Wire.beginTransmission(IOEx1);
+  Wire.write(GPIOB);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+
+  Wire.beginTransmission(IOEx2);
+  Wire.write(GPIOA);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+  Wire.beginTransmission(IOEx2);
+  Wire.write(GPIOB);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+  
+  Wire.beginTransmission(IOEx3);
+  Wire.write(GPIOA);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+  Wire.beginTransmission(IOEx3);
+  Wire.write(GPIOB);
+  Wire.write(0xFF);
+  Wire.endTransmission();
 }
