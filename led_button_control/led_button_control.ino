@@ -22,7 +22,14 @@
 #define IOEx3 0x27  //IC on the right
 
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
-int delayTime = 20;
+int delayTime = 200;
+
+int counter = 0;
+
+int LEDMatrix[6][6][6] = {};
+// first dimension left -> right
+// second dimension back -> front
+// third dimension layer
 
 
 void configurePins(){
@@ -44,55 +51,73 @@ void setup() {
 
   // Test program for buttons:
   // just write something in the shift register to make some LEDs light up
-  digitalWrite(clk, HIGH);
-  delay(delayTime);
-  digitalWrite(clk, LOW);
-  digitalWrite(init, HIGH);
-  delay(delayTime);
-  digitalWrite(clk, HIGH);
-  delay(delayTime);
-  digitalWrite(clk, LOW);
+  digitalWrite(init, LOW);
+  // digitalWrite(clk, HIGH);
+  // delay(delayTime/10);
+  // digitalWrite(clk, LOW);
+  // delay(delayTime/10);
+  // digitalWrite(clk, HIGH);
+  // delay(delayTime/10);
+  // digitalWrite(clk, LOW);
+  // delay(delayTime/10);
+  // digitalWrite(clk, HIGH);
+  // delay(delayTime/10);
+  // digitalWrite(clk, LOW);
+  // delay(delayTime/10);
+  // digitalWrite(clk, HIGH);
+  // delay(delayTime/10);
+  // digitalWrite(clk, LOW);
 
   clearAllLEDs();
+  clearLEDMatrix();
+  LEDMatrix[0][0][0] = 1;
+  LEDMatrix[1][1][1] = 1;
+  LEDMatrix[2][2][2] = 1;
+  LEDMatrix[3][3][3] = 1;
+  LEDMatrix[4][4][4] = 1;
+  LEDMatrix[5][5][5] = 1;
 
 }
 
 void loop() {
   // Test program for buttons:
 
-  readAllButtons();
+  // readAllButtons();
 
-  byte leftRow = 0;
-  byte secondLeftRow = 0;
+  // byte leftRow = 0;
+  // byte secondLeftRow = 0;
 
-  // save button status in bytes (B6&7 stay empty)
-  leftRow |= (button1 << 0);
-  leftRow |= (button2 << 1);
-  leftRow |= (button3 << 2);
-  leftRow |= (button4 << 3);
-  leftRow |= (button5 << 4);
-  leftRow |= (button6 << 5);
+  // // save button status in bytes (B6&7 stay empty)
+  // leftRow |= (button1 << 0);
+  // leftRow |= (button2 << 1);
+  // leftRow |= (button3 << 2);
+  // leftRow |= (button4 << 3);
+  // leftRow |= (button5 << 4);
+  // leftRow |= (button6 << 5);
 
-  // A0&1 stay empty
-  secondLeftRow |= (button7 << 2);
-  secondLeftRow |= (button8 << 3);
-  secondLeftRow |= (button9 << 4);
-  secondLeftRow |= (button10 << 5);
-  secondLeftRow |= (button11 << 6);
-  secondLeftRow |= (button12 << 7);
+  // // A0&1 stay empty
+  // secondLeftRow |= (button7 << 2);
+  // secondLeftRow |= (button8 << 3);
+  // secondLeftRow |= (button9 << 4);
+  // secondLeftRow |= (button10 << 5);
+  // secondLeftRow |= (button11 << 6);
+  // secondLeftRow |= (button12 << 7);
 
 
-  // send Buttons status to LEDs
-  Wire.beginTransmission(IOEx1);
-  Wire.write(GPIOB);
-  Wire.write(leftRow);
-  Wire.endTransmission();
+  // // send Buttons status to LEDs
+  // Wire.beginTransmission(IOEx1);
+  // Wire.write(GPIOB);
+  // Wire.write(leftRow);
+  // Wire.endTransmission();
 
-  Wire.beginTransmission(IOEx1);
-  Wire.write(GPIOA);
-  Wire.write(secondLeftRow);
-  Wire.endTransmission();
+  // Wire.beginTransmission(IOEx1);
+  // Wire.write(GPIOA);
+  // Wire.write(secondLeftRow);
+  // Wire.endTransmission();
 
-  // delay(1000);
+  //delay(1000);
+
+  setLEDs();
+
 
 }
