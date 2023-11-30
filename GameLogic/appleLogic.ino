@@ -1,0 +1,47 @@
+Apple createApple() { //Creates Apple
+  apple.x = random(6);
+  apple.y = random(6);
+  apple.z = random(6);
+  
+  isApplePositionInSnake();
+
+  gameState[apple.x][apple.y][apple.z] = 1;
+  
+  Serial.print("Apple Coordinates (x, y, z): ");
+  Serial.print(apple.x);
+  Serial.print(", ");
+  Serial.print(apple.y);
+  Serial.print(", ");
+  Serial.println(apple.z);
+  isAppleCreated = true;
+
+  return apple;
+}
+
+bool isApplePositionInSnake() {
+    if (apple.x == snakeHead->x && apple.y == snakeHead->y && apple.z == snakeHead->z) {
+          
+        apple.x = random(6);
+        apple.y = random(6);
+        apple.z = random(6);
+        
+      return true;   
+  }
+  return false;
+}
+
+bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the apple
+  if(apple.x == snakeHead->x &&
+     apple.y == snakeHead->y &&
+     apple.z == snakeHead->z){
+      
+     applesEaten++;
+          
+     return true; }else{
+       return false; 
+     }   
+}
+
+bool checkAppleCreated() {  //Verify's if the Apple is created, if not game won't begin or will stop the game
+  return (apple.x != 0 || apple.y != 0 || apple.z != 0);
+}
