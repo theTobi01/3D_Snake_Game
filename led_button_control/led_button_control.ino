@@ -2,8 +2,8 @@
 
 #define scl A5
 #define sda A4
-#define init 0     //IO0
-#define clk 1      //IO1
+#define init 2     //IO0
+#define clk 3      //IO1
 
 #define IODIRA 0x00 //Define reading Register 
 #define IODIRB 0x01 //Define reading Register  
@@ -22,7 +22,7 @@
 #define IOEx3 0x27  //IC on the right
 
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
-int delayTime = 200;
+int delayTime = 1;
 
 int counter = 0;
 
@@ -52,6 +52,7 @@ void setup() {
   // Test program for buttons:
   // just write something in the shift register to make some LEDs light up
   digitalWrite(init, LOW);
+  digitalWrite(clk, LOW);
   // digitalWrite(clk, HIGH);
   // delay(delayTime/10);
   // digitalWrite(clk, LOW);
@@ -118,6 +119,8 @@ void loop() {
   //delay(1000);
 
   setLEDs();
+
+  
 
 
 }
