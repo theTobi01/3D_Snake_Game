@@ -4,8 +4,9 @@ void moveSnake(Snake* snake) {
   int z_prev = -1;
   int x_curr, y_curr, z_curr;
 
+  //Serial.println(sizeof(snake));
   for (int i = 0; i < sizeof(snake) ; i++) {
-    x_curr = snake[i].x;
+     x_curr = snake[i].x;
     y_curr = snake[i].y;
     z_curr = snake[i].z;
 
