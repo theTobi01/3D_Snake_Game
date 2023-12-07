@@ -19,7 +19,7 @@ Apple createApple() { //Creates Apple
 }
 
 bool isApplePositionInSnake() {
-    if (apple.x == snakeHead->x && apple.y == snakeHead->y && apple.z == snakeHead->z) {
+    if (apple.x == snake[0].x && apple.y == snake[0].y && apple.z == snake[0].z) {
           
         apple.x = random(6);
         apple.y = random(6);
@@ -31,9 +31,9 @@ bool isApplePositionInSnake() {
 }
 
 bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the apple
-  if(apple.x == snakeHead->x &&
-     apple.y == snakeHead->y &&
-     apple.z == snakeHead->z){
+  if(apple.x == snake[0].x &&
+     apple.y == snake[0].y &&
+     apple.z == snake[0].z){
       
      applesEaten++;
           

@@ -1,47 +1,39 @@
-void startGame() {
-  bodySize = 0;
-  applesEaten = 0;
-  
+void startGame() {  
   while (gameOverBoard) {
-    for (int x = 0; x <= 6; x++) {
-      for (int y = 0; y <= 6; y++) {
-        for (int z = 0; z <= 6; z++) {
+    for (int x = 0; x < 6; x++) {
+      for (int y = 0; y < 6; y++) {
+        for (int z = 0; z < 6; z++) {
 
-          int prevHeadX = snakeHead->x;
-          int prevHeadY = snakeHead->y;
-          int prevHeadZ = snakeHead->z;
-
-//          int prevBodyX = snakeBody->x;
-//          int prevBodyY = snakeBody->y;
-//          int prevBodyZ = snakeBody->z;
-
-//          if (applesEaten == 1) {
-//            bodyFirstPiece(prevHeadX, prevHeadY, prevHeadZ);
-//
-//            gameState[snakeBody->x][snakeBody->y][snakeBody->z] = 1;
-//
-//          } else if (applesEaten > 1) {
-//
-//            bodyFirstPiece(prevHeadX, prevHeadY, prevHeadZ);
-//
-//            addBodyPiece(prevBodyX, prevBodyY, prevBodyZ);
-//
-//            gameState[snakeBody->x][snakeBody->y][snakeBody->z] = 1;
-//          }
-
-          updateHead(x, y, z);
-
-          gameState[snakeHead->x][snakeHead->y][snakeHead->z] = 1;
+          
+          //Create button logic
+          moveSnake(snake);
+              Serial.println(sizeof(Snake));
+          for (int i = 0; i <= sizeof(snake); i++){
+              Serial.print("SnakeHead[");
+              Serial.print(snake[i].x);
+              Serial.print("][");
+              Serial.print(snake[i].y);
+              Serial.print("][");
+              Serial.print(snake[i].z);
+               Serial.println("]");
+        
+              gameState[snake[i].x][snake[i].y][snake[i].z] = 1;
+          }
 
           if (checkAppleCollision()) {
             gameState[apple.x][apple.y][apple.z] = 0;
-        //    growBody();
 
+         //   checkGameWon(); 
+            
             Serial.println("Apple eaten!");
             createApple();
           }
-          readVirtualMatrix();
-          gameState[snakeHead -> x][snakeHead -> y][snakeHead -> z] = 0;
+          //readVirtualMatrix();
+          printMatrix();
+          
+          for(int i = 0 ; i < sizeof(snake)-1; i++){            
+           gameState[snake[i].x][snake[i].y][snake[i].z] = 0;  
+          }
         }
       }
     }

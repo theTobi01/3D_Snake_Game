@@ -1,6 +1,16 @@
+//bool isgameWon(){
+//  if (bodySize >= 20){
+//    Serial.println("Game WON");
+//        bodySize = 0;
+//    applesEaten = 0;
+//    gameStarted = false;
+//    
+//  }
+//}
+
 bool gameOverBoard() {  //Verifi's if gameOver by end of the board
 
-  if (snakeHead->x == 7 || snakeHead->y == 7 || snakeHead->z == 7) {
+  if (snake[0].x == 7 || snake[0].y == 7 || snake[0].z == 7) {
 
     allLED_ON();
     
@@ -13,6 +23,7 @@ bool gameOverBoard() {  //Verifi's if gameOver by end of the board
     //Body delete;
     
     Serial.println("GAME OVER");
+    free(snake);
     resetGameBoard();
     startGame();
 
@@ -33,6 +44,23 @@ void allLED_ON() {
   }
 }
 
+
+void printMatrix(){
+  for(int y = 0 ; y < 6 ; y++) {
+    for(int x = 0 ; x < 6 ; x++) {
+        for(int z = 5 ; z >= 0 ; z--) {
+            Serial.print(gameState[x][y][z]);
+            Serial.print(" ");
+        }
+        Serial.println();
+    }
+    Serial.println();
+    Serial.print("Layer y = ");
+    Serial.println(y);
+    Serial.println();
+}
+Serial.println(" new cycle ");
+}
 
 void resetGameBoard() { //Inicialize virtual LEDs state matrix with all 0 TUDO DESLIGADO
   int x, y, z;
