@@ -56,11 +56,11 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
-  Serial.print("Data 1A: ");
-  Serial.println(dataA, BIN);
+  // Serial.print("Data 1A: ");
+  // Serial.println(dataA, BIN);
 
-  Serial.print("Data 1B: ");
-  Serial.println(dataB, BIN);
+  // Serial.print("Data 1B: ");
+  // Serial.println(dataB, BIN);
 
   if ((dataA & 0x01) != 0) { // checking if bit 0 is 1
     button10 = false;
@@ -108,11 +108,11 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
-  Serial.print("Data 2A: ");
-  Serial.println(dataA, BIN);
+  // Serial.print("Data 2A: ");
+  // Serial.println(dataA, BIN);
 
-  Serial.print("Data 2B: ");
-  Serial.println(dataB, BIN);
+  // Serial.print("Data 2B: ");
+  // Serial.println(dataB, BIN);
 
   if ((dataA & 0x01) != 0) {
     button11 = false;
@@ -160,11 +160,11 @@ void readAllButtons(){
   dataA &= 0x03; // setting bits 2 to 7 to 0
   dataB &= 0xC0; // setting bits 0 to 5 to 0
 
-  Serial.print("Data 3A: ");
-  Serial.println(dataA, BIN);
+  // Serial.print("Data 3A: ");
+  // Serial.println(dataA, BIN);
 
-  Serial.print("Data 3B: ");
-  Serial.println(dataB, BIN);
+  // Serial.print("Data 3B: ");
+  // Serial.println(dataB, BIN);
 
   if ((dataA & 0x01) != 0) {
     button12 = false;
