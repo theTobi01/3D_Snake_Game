@@ -27,37 +27,37 @@ void moveSnake(Snake* snake) {
 }
 
 
-//bool changeDirection(const char *direction, Snake* snake) {
-//
-//  if (strcmp(direction, "LEFT") == 0) {
-//    snake[0].dx = -1;
-//    snake[0].dy = 0;
-//    snake[0].dz = 0;
-//  } else if (strcmp(direction, "RIGHT") == 0) {
-//    snake[0].dx = 1;
-//    snake[0].dy = 0;
-//    snake[0].dz = 0;
-//  } else if (strcmp(direction, "DOWN") == 0) {
-//    snake[0].dx = 0;
-//    snake[0].dy = 0;
-//    snake[0].dz = -1;
-//  } else if (strcmp(direction, "UP") == 0) {
-//    snake[0].dx = 0;
-//    snake[0].dy = 0;
-//    snake[0].dz = 1;
-//  } else if (strcmp(direction, "FRONT") == 0) {
-//    snake[0].dx = 0;
-//    snake[0].dy = 1;
-//    snake[0].dz = 0;
-//  } else if (strcmp(direction, "BACK") == 0) {
-//    snake[0].dx = 0;
-//    snake[0].dy = -1;
-//    snake[0].dz = 0;
-//  } else {
-//    return false;       
-//  }
-//}
-//
+bool changeDirection(const char *direction, Snake* snake) {
+    if (strcmp(direction, "LEFT") == 0){
+        snake[0].dx = -1;
+        snake[0].dy = 0;
+        snake[0].dz = 0;
+    } else if (strcmp(direction, "RIGHT") == 0){
+        snake[0].dx = 1;
+        snake[0].dy = 0;
+        snake[0].dz = 0;
+    } else if (strcmp(direction, "DOWN") == 0){
+        snake[0].dx = 0;
+        snake[0].dy = 0;
+        snake[0].dz = -1;
+    } else if (strcmp(direction, "UP") == 0){
+        snake[0].dx = 0;
+        snake[0].dy = 0;
+        snake[0].dz = 1;
+    } else if (strcmp(direction, "FRONT") == 0){
+        snake[0].dx = 0;
+        snake[0].dy = 1;
+        snake[0].dz = 0;
+    } else if (strcmp(direction, "BACK") == 0){
+        snake[0].dx = 0;
+        snake[0].dy = -1;
+        snake[0].dz = 0;
+    } else {
+        return false;
+    }
+    return true; // Indicate successful direction change
+}
+
 ////void bodyFirstPiece(int prevHeadX, int prevHeadY, int prevHeadZ) {
 ////
 ////    snakeBody->x = prevHeadX;

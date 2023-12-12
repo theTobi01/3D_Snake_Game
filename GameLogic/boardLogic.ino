@@ -4,28 +4,33 @@
 //        bodySize = 0;
 //    applesEaten = 0;
 //    gameStarted = false;
-//    
+//
 //  }
 //}
 
-bool gameOverBoard() {  //Verifi's if gameOver by end of the board
+bool gameOver() {  //Verifi's if gameOver by end of the board
 
   if (snake[0].x == 7 || snake[0].y == 7 || snake[0].z == 7) {
-
+    
+    unsigned long gameEndTimer = millis();
+    unsigned long totalGameTimer = (gameEndTimer - gameStartTimer) / 1000;
+    Serial.println(totalGameTimer);
+    Serial.println("GAME OVER"); 
+    
+    delay(100);
     allLED_ON();
     
-    bodySize = 0;
-    applesEaten = 0;
+    resetGameBoard();
+    
+    free(snake);
+    
+    //Serial.print("Duration of game: ");
+    //Serial.println(gameStartTimer);
+    gameStartTimer = 0;
+    
     gameStarted = false;
 
-    //Snake* snake = (Snake*)malloc(sizeof(Snake));
-    //Snake* snakeHead = &snake[0];
-    //Body delete;
-    
-    Serial.println("GAME OVER");
-    free(snake);
-    resetGameBoard();
-    startGame();
+
 
     return true;
   } else {
@@ -33,35 +38,18 @@ bool gameOverBoard() {  //Verifi's if gameOver by end of the board
   }
 }
 
+
+
 void allLED_ON() {
   for (int x = 0; x <= 6; x++) {
     for (int y = 0; y <= 6; y++) {
       for (int z = 0; z <= 6; z++) {
         gameState[x][y][z] = 1;
-        readVirtualMatrix();
+        //printMatrix();
       }
     }
   }
 }
-
-
-void printMatrix(){
-  for(int y = 0 ; y < 6 ; y++) {
-    for(int x = 0 ; x < 6 ; x++) {
-        for(int z = 5 ; z >= 0 ; z--) {
-            Serial.print(gameState[x][y][z]);
-            Serial.print(" ");
-        }
-        Serial.println();
-    }
-    Serial.println();
-    Serial.print("Layer y = ");
-    Serial.println(y);
-    Serial.println();
-}
-Serial.println(" new cycle ");
-}
-
 void resetGameBoard() { //Inicialize virtual LEDs state matrix with all 0 TUDO DESLIGADO
   int x, y, z;
   for (int x = 0; x < 6; x++) {
@@ -70,26 +58,43 @@ void resetGameBoard() { //Inicialize virtual LEDs state matrix with all 0 TUDO D
         gameState[x][y][z] = 0;
       }
     }
-   }
-  }
-
-
-void readVirtualMatrix() {  //Lê Todas as posições da matriz uma a uma
-  Serial.println("Reading Game State matrix:");
-  for (int x = 0; x < 6; x++) {
-    for (int y = 0; y < 6; y++) {
-      for (int z = 0; z < 6; z++) {
-        //isAppleColision();
-
-        Serial.print("Position[");
-        Serial.print(x);
-        Serial.print("][");
-        Serial.print(y);
-        Serial.print("][");
-        Serial.print(z);
-        Serial.print("]: ");
-        Serial.println(gameState[x][y][z]);
-      }
-    }
   }
 }
+
+
+void printMatrix() {
+  for (int y = 0 ; y < 6 ; y++) {
+    for (int x = 0 ; x < 6 ; x++) {
+      for (int z = 5 ; z >= 0 ; z--) {
+        Serial.print(gameState[x][y][z]);
+        Serial.print(" ");
+      }
+      Serial.println();
+    }
+    Serial.println();
+    Serial.print("Layer y = ");
+    Serial.println(y);
+    Serial.println();
+  }
+  Serial.println(" new cycle ");
+}
+
+//void readVirtualMatrix() {  //Lê Todas as posições da matriz uma a uma
+//  Serial.println("Reading Game State matrix:");
+//  for (int x = 0; x < 6; x++) {
+//    for (int y = 0; y < 6; y++) {
+//      for (int z = 0; z < 6; z++) {
+//        //isAppleColision();
+//
+//        Serial.print("Position[");
+//        Serial.print(x);
+//        Serial.print("][");
+//        Serial.print(y);
+//        Serial.print("][");
+//        Serial.print(z);
+//        Serial.print("]: ");
+//        Serial.println(gameState[x][y][z]);
+//      }
+//    }
+//  }
+//}
