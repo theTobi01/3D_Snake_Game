@@ -195,12 +195,12 @@ void readAllButtons(){
     buttonPressed6 = true;
   }
 
-  unsigned long endTime = micros();
-  unsigned long executionTime = endTime - startTime;
+  // unsigned long endTime = micros();
+  // unsigned long executionTime = endTime - startTime;
 
-  Serial.print("Execution time readAllButtons: ");
-  Serial.print(executionTime);
-  Serial.println(" microseconds");
+  // Serial.print("Execution time readAllButtons: ");
+  // Serial.print(executionTime);
+  // Serial.println(" microseconds");
 }
 
 void clearButtonsPressed(){

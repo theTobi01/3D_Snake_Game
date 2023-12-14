@@ -8,30 +8,15 @@ void clearLEDMatrix(){
   }
 }
 
-// void printLEDMatrix(){
-//   Serial.println("Current State of the Matrix: ");
-//   for (int i = 0; i < 6; i++) {
-//     for (int j = 0; j < 6; j++) {
-//       for (int k = 0; k < 6; k++) {
-//         Serial.print(LEDMatrix[i][j][k]);
-//         if (i == 0) {
-//         Serial.print("  ");
-//       } else if (i == 1) {
-//         Serial.print("* ");
-//       } else if (i == 2) {
-//         Serial.print("** ");
-//       } else if (i == 3) {
-//         Serial.print("*** ");
-//       } else if (i == 4) {
-//         Serial.print("**** ");
-//       } else if (i == 5) {
-//         Serial.print("***** ");
-//       }
-//       }
-//       Serial.println();
-//     }
-//   }
-// }
+void fullLEDMatrix(){
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 6; j++) {
+      for (int k = 0; k < 6; k++) {
+        LEDMatrix[i][j][k] = 1;
+      }
+    }
+  }
+}
 
 
 void setLEDs(){
@@ -46,81 +31,86 @@ void setLEDs(){
   // switching on the layer
   digitalWrite(clk, HIGH);
   digitalWrite(init, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
 
   // switching off the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   digitalWrite(clk, LOW);
   // Layer 1
   setIOExpanders(1);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   // switching on the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
 
   // switching off the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   digitalWrite(clk, LOW);
   // Layer 2
   setIOExpanders(2);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   // switching on the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
 
   // switching off the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   digitalWrite(clk, LOW);
   // Layer 3
   setIOExpanders(3);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   // switching on the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
 
   // switching off the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   digitalWrite(clk, LOW);
   // Layer 4
   setIOExpanders(4);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   // switching on the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
 
   // switching off the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   digitalWrite(clk, LOW);
   // Layer 5
   setIOExpanders(5);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeShort);
   // switching on the layer
   digitalWrite(clk, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
   digitalWrite(clk, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTimeLong);
+  
+  // switching off the layer
+  digitalWrite(clk, HIGH);
+  delayMicroseconds(delayTimeShort);
+  digitalWrite(clk, LOW);
 
-  unsigned long endTime = micros();
-  unsigned long executionTime = endTime - startTime;
+  // unsigned long endTime = micros();
+  // unsigned long executionTime = endTime - startTime;
 
-  Serial.print("Execution time setLEDs: ");
-  Serial.print(executionTime);
-  Serial.println(" microseconds");
+  // Serial.print("Execution time setLEDs: ");
+  // Serial.print(executionTime);
+  // Serial.println(" microseconds");
 
 }
 
