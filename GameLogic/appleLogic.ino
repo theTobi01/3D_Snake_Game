@@ -27,9 +27,9 @@ bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the appl
   if(apple.x == snake[0].x &&
      apple.y == snake[0].y &&
      apple.z == snake[0].z){
-      
-//     applesEaten++;
-          
+     
+     applesEaten ++;
+     gameState[apple.x][apple.y][apple.z] = 0;
      return true; 
      }else{
        return false; 

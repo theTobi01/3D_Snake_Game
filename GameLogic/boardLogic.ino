@@ -1,37 +1,25 @@
-//bool isgameWon(){
-//  if (bodySize >= 20){
-//    Serial.println("Game WON");
-//        bodySize = 0;
-//    applesEaten = 0;
-//    gameStarted = false;
-//
-//  }
-//}
+bool isgameWon(){
+  if (applesEaten > 20){
+
+    allLED_ON();   
+    resetGameBoard();   
+    free(snake);
+    applesEaten = 0;
+    gameStarted = false;
+   return true;
+  }else
+  return false;
+  }
 
 bool gameOver() {  //Verifi's if gameOver by end of the board
 
   if (snake[0].x == 7 || snake[0].y == 7 || snake[0].z == 7) {
-    
-    unsigned long gameEndTimer = millis();
-    unsigned long totalGameTimer = (gameEndTimer - gameStartTimer) / 1000;
-    Serial.println(totalGameTimer);
-    Serial.println("GAME OVER"); 
-    
-    delay(100);
-    allLED_ON();
-    
-    resetGameBoard();
-    
+        
+    allLED_ON();   
+    resetGameBoard();   
     free(snake);
-    
-    //Serial.print("Duration of game: ");
-    //Serial.println(gameStartTimer);
-    gameStartTimer = 0;
-    
+    applesEaten = 0;
     gameStarted = false;
-
-
-
     return true;
   } else {
     return false;
@@ -71,30 +59,29 @@ void printMatrix() {
       }
       Serial.println();
     }
-    Serial.println();
     Serial.print("Layer y = ");
     Serial.println(y);
     Serial.println();
   }
   Serial.println(" new cycle ");
 }
+void readVirtualMatrix() {  //Lê Todas as posições da matriz uma a uma
+  Serial.println("Reading Game State matrix:");
+  for (int x = 0; x < 1; x++) {
+    for (int y = 0; y < 5; y++) {
+      for (int z = 0; z < 1; z++) {
 
-//void readVirtualMatrix() {  //Lê Todas as posições da matriz uma a uma
-//  Serial.println("Reading Game State matrix:");
-//  for (int x = 0; x < 6; x++) {
-//    for (int y = 0; y < 6; y++) {
-//      for (int z = 0; z < 6; z++) {
-//        //isAppleColision();
-//
-//        Serial.print("Position[");
-//        Serial.print(x);
-//        Serial.print("][");
-//        Serial.print(y);
-//        Serial.print("][");
-//        Serial.print(z);
-//        Serial.print("]: ");
-//        Serial.println(gameState[x][y][z]);
-//      }
-//    }
-//  }
-//}
+        //isAppleColision();
+
+        Serial.print("Position[");
+        Serial.print(x);
+        Serial.print("][");
+        Serial.print(y);
+        Serial.print("][");
+        Serial.print(z);
+        Serial.print("]: ");
+        Serial.println(gameState[x][y][z]);
+      }
+    }
+  }
+}
