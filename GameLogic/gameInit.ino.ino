@@ -53,24 +53,30 @@ void loop() {
       for (int y = 0; y < 7; y++) {
         for (int z = 0; z < 7; z++) {
 
+          // 1 - PRINT CURRENT POSITION OF THE SNAKE INTO THE GAMEBOARD
           for (int i = 0; i < sizeof(snake); i++) {
             gameState[snake[i].x][snake[i].y][snake[i].z] = 1;
           }
 
-          // Checks if in the new position the snake eats the apple
+          // 2 - CHECKS IF IN THE NEW POSITION THE SNAKE EATS THE APPLE
+          //     IF SNAKE EATS APPLE -> 1) SPAWNS NEW APPLE IN THE GAMEBOARD + 2) GROW SNAKE
           if (checkAppleCollision()) {
-            createApple(); // If the snake ate the apple, spawns a new apple
+            createApple(); // Spawns a new apple
+            growSnake(); // Adds new segment to the snake's body
           }
           
-          //printMatrix(); // Print the current game state
-          //readVirtualMatrix();
+          // 3 - PRINT CURRENT GAMEBOARD
+          /*
+          printMatrix(); // Print the current game state
+          readVirtualMatrix();
+          */
 
-          // Moves the snake to its next position, according to the current direction, and simultanously deletes the current position (now, outdated) from the game board
-          for (int i = 0 ; i < sizeof(snake); i++) { // Deletes current positions
+          // 4 - MOVES THE SNAKE ACCORDING TO ITS CURRENT DIRECTION
+          for (int i = 0 ; i < sizeof(snake); i++) { // Deletes previous snake position
             gameState[snake[i].x][snake[i].y][snake[i].z] = 0;
           }
-          
           moveSnake(snake); // Moves the snake to the new position
+
           gameOver();
           isgameWon();           
         }

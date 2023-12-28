@@ -6,7 +6,7 @@ void moveSnake(Snake* snake) {
 
   //Serial.println(sizeof(snake));
   for (int i = 0; i < sizeof(snake) ; i++) {
-     x_curr = snake[i].x;
+    x_curr = snake[i].x;
     y_curr = snake[i].y;
     z_curr = snake[i].z;
 
@@ -24,6 +24,41 @@ void moveSnake(Snake* snake) {
     y_prev = y_curr;
     z_prev = z_curr;
     }
+}
+
+bool growSnake() {
+  int snakeSize = sizeof(snake) + 1;
+  Snake* newSkin = (Snake*)malloc((sizeof(snake)+1) * sizeof(Snake)); // Create new array for the new snake body
+
+  if (newSnake != NULL) {
+    // 1 - MAKES EVERY SEGMENT OF THE NEW SKIN EQUAL TO THE RESPECTIVE SEGMENT OF THE NEW SKIN (EXCEPT NEW TAIL)
+    for (int i = 0; i < sizeof(snake); i++) {
+      newSkin[i + 1] = snake[i];
+    }
+
+    // 2 - DETERMINE BEST POSITION FOR NEW TAIL
+
+    Snake* new_tail = &newSkin[sizeof(newSkin)-1];
+    bool valid_position = false;
+
+    // Randomizes the new tail's position until it chooses a spot that is free (no other body segment + no apple + within game zone boundaries)
+    while(!valid_position) {
+      new_tail.x = random(6);
+      new_tail.y = random(6);
+      new_tail.z = random(6);
+      if(gameState[new_tail.x][new_tail.y][new_tail.z] == 0)
+        valid_position = true;
+    }
+    
+    // 3 - GIVE NEW SKIN TO SNAKE AND DELETE OLD SKIN
+
+    free(snake); // Free memory of the old snake body
+    snake = newSkin; // Update snake pointer to point to new body
+    return true;
+  } else {
+    Serial.println("Failed in growning snake");
+    return false;
+  }
 }
 
 
@@ -56,103 +91,4 @@ bool changeDirection(const char *direction, Snake* snake) {
         return false;
     }
     return true; // Indicate successful direction change
-}
-void \(Snake* snake) {
-  Snake new_tail;
-
-  // Gets the current position of the final segment (i.e. tail) of the snake and of the segment just before that (punultimate)
-  Snake tail = snake[sizeof(snake) - 1]; // Current position of the tail
-  Snake tail_prev = snake[sizeof(snake) - 2]; // Current position of the segment that comes just before the tail
-
-    snake = (Snake *)realloc(snake, (sizeof(snake) + 1) * sizeof(Snake*));
-
-  // Checks if the tail is at a game zone boundary
-  if ( (tail.x == 0 || tail.x == 6) || (tail.y == 0 || tail.y == 6) || (tail.z == 0 || tail.z == 6) ) { // If the game IS at a game zone boundary
-    // Check in which line (i.e. intersection of 2 planes) both the tail and the tail_prev segments are contained
-    if ((tail.x == tail_prev.x) && (tail.y == tail_prev.y)) { // If they are contained in the same x and y axis
-      if (tail.y == 0) {
-        new_tail.x = tail.x;
-        new_tail.z = tail.z;
-        new_tail.y = tail.y + 1;
-      } else if (tail.y == 6) {
-        new_tail.x = tail.x;
-        new_tail.z = tail.z;
-        new_tail.y = tail.y - 1;
-      } else if (tail.x == 0) {
-        new_tail.y = tail.y;
-        new_tail.z = tail.z;
-        new_tail.x = tail.x + 1;
-      } else if (tail.x == 6) {
-        new_tail.y = tail.y;
-        new_tail.z = tail.z;
-        new_tail.x = tail.x - 1;
-      }
-    } else if ((tail.y == tail_prev.y) && (tail.z == tail_prev.z)) { // If they are contained in the same y and z axis
-      if (tail.y == 0) {
-        new_tail.x = tail.x;
-        new_tail.z = tail.z;
-        new_tail.y = tail.y + 1;
-      } else if (tail.y == 6) {
-        new_tail.x = tail.x;
-        new_tail.z = tail.z;
-        new_tail.y = tail.y - 1;
-      } else if (tail.z == 0) {
-        new_tail.x = tail.x;
-        new_tail.y = tail.y;
-        new_tail.z = tail.z + 1;
-      } else if (tail.z == 6) {
-        new_tail.x = tail.x;
-        new_tail.y = tail.y;
-        new_tail.z = tail.z - 1;
-      }
-    } else if ((tail.x == tail_prev.x) && (tail.z == tail_prev.z)) { // If they are contained in the same x and z axis
-      if (tail.x == 0) {
-        new_tail.y = tail.y;
-        new_tail.z = tail.z;
-        new_tail.x = tail.x + 1;
-      } else if (tail.x == 6) {
-        new_tail.y = tail.y;
-        new_tail.z = tail.z;
-        new_tail.x = tail.x - 1;
-      } else if (tail.z == 0) {
-        new_tail.x = tail.x;
-        new_tail.y = tail.y;
-        new_tail.z = tail.z + 1;
-      } else if (tail.z == 6) {
-        new_tail.x = tail.x;
-        new_tail.y = tail.y;
-        new_tail.z = tail.z - 1;
-      }
-    }
-  } else { // If the tail IS NOT at a game zone boundary
-    // Check in which line (i.e. intersection of 2 planes) both the tail and the tail_prev segments are contained
-    if ((tail.x == tail_prev.x) && (tail.y == tail_prev.y)) { // If they are contained in the same x and y axis
-      new_tail.x = tail.x;
-      new_tail.y = tail.y;
-      if (tail.z < tail_prev.z)
-        new_tail.z = tail.z - 1;
-      else
-        new_tail.z = tail.z + 1;
-    } else if ((tail.y == tail_prev.y) && (tail.z == tail_prev.z)) { // If they are contained in the same y and z axis
-      new_tail.y = tail.y;
-      new_tail.z = tail.z;
-      if (tail.x < tail_prev.x)
-        new_tail.x = tail.x - 1;
-      else
-        new_tail.x = tail.x + 1;
-    } else if ((tail.x == tail_prev.x) && (tail.z == tail_prev.z)) { // If they are contained in the same x and z axis
-      new_tail.x = tail.x;
-      new_tail.z = tail.z;
-      if (tail.y < tail_prev.y)
-        new_tail.y = tail.y - 1;
-      else
-        new_tail.y = tail.y + 1;
-    }
-  }
-
-  // Add the new segment to the snake's body
-
-  snake[sizeof(snake) - 1].x = new_tail.x;
-  snake[sizeof(snake) - 1].y = new_tail.y;
-  snake[sizeof(snake) - 1].z = new_tail.z;
 }
