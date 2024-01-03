@@ -35,7 +35,7 @@ void configureIoExtenders() {
 }
 
 void readAllButtons(){
-  unsigned long startTime = micros();
+  // unsigned long startTime = micros();
 
   byte dataA, dataB;
   uint16_t result;
@@ -67,28 +67,28 @@ void readAllButtons(){
   } 
   else{
     button10 = true;
-    buttonPressed10 = true;
+    buttonPressedFRONT = true;
   }
   if ((dataA & 0x02) != 0) { // checking if bit 1 in 1
     button7 = false;
   } 
   else{
     button7 = true;
-    buttonPressed7 = true;
+    buttonPressedBACK = true;
   }
   if ((dataB & 0x70) != 0) {  // checking if bit 6 is 1
     button1 = false;
   } 
   else{
     button1 = true;
-    buttonPressed1 = true;
+    buttonPressedLEFT = true;
   }
   if ((dataB & 0x80) != 0) { // checking of bit 7 is 1
     button4 = false;
   } 
   else{
     button4 = true;
-    buttonPressed4 = true;
+    buttonPressedRIGHT = true;
   }
 
 
@@ -133,14 +133,14 @@ void readAllButtons(){
   } 
   else{
     button2 = true;
-    buttonPressed2 = true;
+    buttonPressedUP = true;
   }
   if ((dataB & 0x80) != 0) {
     button5 = false;
   } 
   else{
     button5 = true;
-    buttonPressed5 = true;
+    buttonPressedDOWN = true;
   }
 
 
@@ -204,8 +204,8 @@ void readAllButtons(){
 }
 
 void clearButtonsPressed(){
-  buttonPressed1 = buttonPressed2 = buttonPressed3 = buttonPressed4 = buttonPressed5 = buttonPressed6 = buttonPressed7 = buttonPressed8
-   = buttonPressed9 = buttonPressed10 = buttonPressed11 = buttonPressed12 = false;
+  buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
+     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressed11 = buttonPressed12 = false;
 }
 
 void clearAllLEDs(){

@@ -22,7 +22,7 @@
 void setLEDs(){
   // shift register switches on rising flank
   // set LEDS for layer -> switch Layer on -> switch layer off 
-  unsigned long startTime = micros();
+  // unsigned long startTime = micros();
 
   // Layer 0
   setIOExpanders(0);

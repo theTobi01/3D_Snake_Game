@@ -6,6 +6,7 @@ Apple createApple() { //Creates Apple
   isApplePositionInSnake();
 
   gameState[apple.x][apple.y][apple.z] = 1;
+  Serial.println("Apple Created");
   return apple;
 }
 
@@ -17,6 +18,8 @@ bool isApplePositionInSnake() {
         apple.x = random(6);
         apple.y = random(6);
         apple.z = random(6);
+
+        gameState[apple.x][apple.y][apple.z] = 1;
         
       return true;   
   }
@@ -24,12 +27,17 @@ bool isApplePositionInSnake() {
 }
 
 bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the apple
+  Serial.print("apple = ");
+  Serial.print(apple.x); Serial.print(apple.y); Serial.println(apple.z);
+  Serial.print("snake = ");
+  Serial.print(snake[0].x); Serial.print(snake[0].y); Serial.println(snake[0].z);
   if(apple.x == snake[0].x &&
      apple.y == snake[0].y &&
      apple.z == snake[0].z){
      
      applesEaten ++;
      gameState[apple.x][apple.y][apple.z] = 0;
+    //  createApple();
      return true; 
      }else{
        return false; 
