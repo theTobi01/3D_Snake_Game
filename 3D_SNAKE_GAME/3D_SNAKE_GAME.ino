@@ -24,16 +24,6 @@ struct Apple {
   int z;
 };
 
-// typedef struct {
-//   int x;
-//   int y;
-//   int z;
-
-//   int dx;
-//   int dy;
-//   int dz;
-// } Snake;
-
 typedef struct SnakeSegment {
   int x;
   int y;
@@ -88,8 +78,6 @@ void sync(){
 
 ISR(TIMER1_COMPA_vect){//timer1 interrupt
   go = 1;
-  // Sched_Schedule();
-  // Sched_Dispatch(); // needed for preemtable
 }
 
 void setup() {
@@ -119,26 +107,14 @@ void setup() {
 
   resetGameBoard();
 
-  // snake = (Snake*)malloc(sizeof(Snake));
-  // snake[0].x = 0;
-  // snake[0].y = 0;
-  // snake[0].z = 0;
-
-  // snake[0].dx = 0;
-  // snake[0].dy = 1;
-  // snake[0].dz = 0;
-
   snake = initializeSnake();
   
   createApple();
-  
-  // clearAllLEDs();// turn all LEDs off at the IO Expanders
 
 }
 
 void gameLogic(){
   unsigned long startTime = micros();
-  // gameStarted = true;
 
   if(gameStarted){
     

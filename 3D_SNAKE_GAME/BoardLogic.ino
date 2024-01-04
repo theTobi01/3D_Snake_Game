@@ -13,7 +13,7 @@ bool isgameWon(){
 
 bool gameOver() {  //Verifi's if gameOver by end of the board
 
-  if (snake->head->x == 7 || snake->head->y == 7 || snake->head->z == 7) {
+  if (snake->head->x == 6 || snake->head->y == 6 || snake->head->z == 6 || snake->head->x == -1 || snake->head->y == -1 || snake->head->z == -1) {
         
     allLED_ON();   
     resetGameBoard();   
@@ -21,7 +21,8 @@ bool gameOver() {  //Verifi's if gameOver by end of the board
     applesEaten = 0;
     gameStarted = false;
     return true;
-  } else {
+  } 
+  else {
     return false;
   }
 }
@@ -29,9 +30,9 @@ bool gameOver() {  //Verifi's if gameOver by end of the board
 
 
 void allLED_ON() {
-  for (int x = 0; x <= 6; x++) {
-    for (int y = 0; y <= 6; y++) {
-      for (int z = 0; z <= 6; z++) {
+  for (int x = -1; x <= 5; x++) {
+    for (int y = -1; y <= 5; y++) {
+      for (int z = -1; z <= 5; z++) {
         gameState[x][y][z] = 1;
         //printMatrix();
       }

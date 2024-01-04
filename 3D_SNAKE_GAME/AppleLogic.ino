@@ -27,10 +27,6 @@ bool isApplePositionInSnake() {
 }
 
 bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the apple
-  // Serial.print("apple = ");
-  // Serial.print(apple.x); Serial.print(apple.y); Serial.println(apple.z);
-  // Serial.print("snake = ");
-  // Serial.print(snake[0].x); Serial.print(snake[0].y); Serial.println(snake[0].z);
   if(apple.x == snake->head->x && 
      apple.y == snake->head->y && 
      apple.z == snake->head->z){
@@ -44,6 +40,3 @@ bool checkAppleCollision() { // Every 1 -> 0  verifys if the snake eats the appl
      }   
 }
 
-//bool checkAppleCreated() {  //Verify's if the Apple is created, if not game won't begin or will stop the game
-//  return (apple.x != 0 || apple.y != 0 || apple.z != 0);
-//}

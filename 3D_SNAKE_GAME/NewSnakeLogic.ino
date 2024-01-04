@@ -57,10 +57,10 @@ void growSnake(Snake* snake) {
     newSegment->z = 0;
     newSegment->next = NULL;
     
-    if (current == NULL) {
-        snake->head = newSegment;
-        return;
-    }
+    // if (current == NULL) {
+    //     snake->head = newSegment;
+    //     return;
+    // }
 
     while (current->next != NULL) {
         current = current->next;
