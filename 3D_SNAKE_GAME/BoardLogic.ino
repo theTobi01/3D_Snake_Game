@@ -13,7 +13,7 @@ bool isgameWon(){
 
 bool gameOver() {  //Verifi's if gameOver by end of the board
 
-  if (snake[0].x == 7 || snake[0].y == 7 || snake[0].z == 7) {
+  if (snake->head->x == 7 || snake->head->y == 7 || snake->head->z == 7) {
         
     allLED_ON();   
     resetGameBoard();   

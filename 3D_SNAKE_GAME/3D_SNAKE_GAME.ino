@@ -24,18 +24,33 @@ struct Apple {
   int z;
 };
 
-typedef struct {
+// typedef struct {
+//   int x;
+//   int y;
+//   int z;
+
+//   int dx;
+//   int dy;
+//   int dz;
+// } Snake;
+
+typedef struct SnakeSegment {
   int x;
   int y;
   int z;
-
   int dx;
   int dy;
   int dz;
+  struct SnakeSegment* next;
+} SnakeSegment;
+
+typedef struct {
+  SnakeSegment* head;
 } Snake;
 
 Apple apple;
 
+// Snake* snake;
 Snake* snake;
 
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
@@ -46,6 +61,7 @@ int delayTimeLong = 1500;
 
 int applesEaten = 0;
 bool gameStarted = true;
+
 
 int counter = 0;
 
@@ -103,14 +119,16 @@ void setup() {
 
   resetGameBoard();
 
-  snake = (Snake*)malloc(sizeof(Snake));
-  snake[0].x = 0;
-  snake[0].y = 0;
-  snake[0].z = 0;
+  // snake = (Snake*)malloc(sizeof(Snake));
+  // snake[0].x = 0;
+  // snake[0].y = 0;
+  // snake[0].z = 0;
 
-  snake[0].dx = 0;
-  snake[0].dy = 1;
-  snake[0].dz = 0;
+  // snake[0].dx = 0;
+  // snake[0].dy = 1;
+  // snake[0].dz = 0;
+
+  snake = initializeSnake();
   
   createApple();
   
@@ -161,12 +179,16 @@ void gameLogic(){
   if(gameStarted){
     
 
-    for (int i = 0 ; i < sizeof(snake); i++) { // Deletes previous snake position
-      gameState[snake[i].x][snake[i].y][snake[i].z] = 0;
+    for (int i = 0 ; i < 1 + applesEaten; i++) { // Deletes previous snake position
+
+      gameState[snake->head->x][snake->head->y][snake->head->z] = 0;
+      // gameState[snake[i].x][snake[i].y][snake[i].z] = 0;
+
+
       if (checkAppleCollision()) {
         Serial.println("Apple Collision");
         createApple(); // Spawns a new apple
-        growSnake(); // Adds new segment to the snake's body
+        growSnake(snake); // Adds new segment to the snake's body
       }
     }
 
@@ -178,7 +200,7 @@ void gameLogic(){
     if (checkAppleCollision()) {
       Serial.println("Apple Collision");
       createApple(); // Spawns a new apple
-      growSnake(); // Adds new segment to the snake's body
+      growSnake(snake); // Adds new segment to the snake's body
     }
 
     bool over = gameOver();
@@ -187,11 +209,11 @@ void gameLogic(){
     // Update the LEDs
     if(!over && !won){
       for (int i = 0; i < sizeof(snake); i++) { // add snake
-        gameState[snake[i].x][snake[i].y][snake[i].z] = 1;
+        gameState[snake->head->x][snake->head->y][snake->head->z] = 1;
         if (checkAppleCollision()) {
           Serial.println("Apple Collision");
           createApple(); // Spawns a new apple
-          growSnake(); // Adds new segment to the snake's body
+          growSnake(snake); // Adds new segment to the snake's body
         }
       }
     }
