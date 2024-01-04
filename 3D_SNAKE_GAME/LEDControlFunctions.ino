@@ -1,24 +1,3 @@
-// void clearLEDMatrix(){
-//   for (int i = 0; i < 6; i++) {
-//     for (int j = 0; j < 6; j++) {
-//       for (int k = 0; k < 6; k++) {
-//         LEDMatrix[i][j][k] = 0;
-//       }
-//     }
-//   }
-// }
-
-// void fullLEDMatrix(){
-//   for (int i = 0; i < 6; i++) {
-//     for (int j = 0; j < 6; j++) {
-//       for (int k = 0; k < 6; k++) {
-//         LEDMatrix[i][j][k] = 1;
-//       }
-//     }
-//   }
-// }
-
-
 void setLEDs(){
   // shift register switches on rising flank
   // set LEDS for layer -> switch Layer on -> switch layer off 

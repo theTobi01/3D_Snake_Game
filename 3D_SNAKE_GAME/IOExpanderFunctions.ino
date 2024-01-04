@@ -119,7 +119,8 @@ void readAllButtons(){
   } 
   else{
     button11 = true;
-    buttonPressed11 = true;
+    buttonPressedSTART = true;
+    startGame();
   }
   if ((dataA & 0x02) != 0) {
     button8 = false;
@@ -205,7 +206,7 @@ void readAllButtons(){
 
 void clearButtonsPressed(){
   buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
-     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressed11 = buttonPressed12 = false;
+     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressedSTART = buttonPressed12 = false;
 }
 
 void clearAllLEDs(){

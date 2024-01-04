@@ -1,9 +1,9 @@
 bool isgameWon(){
   if (applesEaten > 20){
 
-    allLED_ON();   
+     allLED_ON();   
     resetGameBoard();   
-    free(snake);
+    destroySnake(snake);
     applesEaten = 0;
     gameStarted = false;
    return true;
@@ -16,8 +16,9 @@ bool gameOver() {  //Verifi's if gameOver by end of the board
   if (snake->head->x == 6 || snake->head->y == 6 || snake->head->z == 6 || snake->head->x == -1 || snake->head->y == -1 || snake->head->z == -1) {
         
     allLED_ON();   
+    delay(300);
     resetGameBoard();   
-    free(snake);
+    destroySnake(snake);
     applesEaten = 0;
     gameStarted = false;
     return true;
@@ -40,10 +41,9 @@ void allLED_ON() {
   }
 }
 void resetGameBoard() { //Inicialize virtual LEDs state matrix with all 0 TUDO DESLIGADO
-  int x, y, z;
   for (int x = 0; x < 6; x++) {
     for (int y = 0; y < 6; y++) {
-      for (int z = 0; z < 1; z++) {
+      for (int z = 0; z < 6; z++) {
         gameState[x][y][z] = 0;
       }
     }
@@ -85,4 +85,16 @@ void readVirtualMatrix() {  //Lê Todas as posições da matriz uma a uma
       }
     }
   }
+}
+
+
+void startGame(){
+
+  gameStarted = true;
+
+  resetGameBoard();
+
+  createApple();
+
+  snake = initializeSnake();
 }

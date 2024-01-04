@@ -115,7 +115,6 @@ bool changeDirection(Snake* snake) {
     }
     return true;
   }
-
 }
 
 // Function to free the memory occupied by the snake

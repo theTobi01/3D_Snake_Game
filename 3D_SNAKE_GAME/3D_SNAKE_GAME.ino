@@ -45,12 +45,12 @@ Snake* snake;
 
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
 bool buttonPressedLEFT, buttonPressedUP, buttonPressed3, buttonPressedRIGHT, buttonPressedDOWN, buttonPressed6, buttonPressedBACK, 
-     buttonPressed8, buttonPressed9, buttonPressedFRONT, buttonPressed11, buttonPressed12;
+     buttonPressed8, buttonPressed9, buttonPressedFRONT, buttonPressedSTART, buttonPressed12;
 int delayTimeShort = 1;
 int delayTimeLong = 1500;
 
 int applesEaten = 0;
-bool gameStarted = true;
+bool gameStarted = false;
 
 
 int counter = 0;
@@ -89,7 +89,7 @@ void setup() {
   configureIoExtenders();
   button1 = button2 = button3 = button4 = button5 = button6 = button7 = button8 = button9 = button10 = button11 = button12 = false;
   buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
-     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressed11 = buttonPressed12 = false;
+     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressedSTART = buttonPressed12 = false;
 
   digitalWrite(init, LOW);
   digitalWrite(clk, LOW);
@@ -107,17 +107,55 @@ void setup() {
 
   resetGameBoard();
 
-  snake = initializeSnake();
   
-  createApple();
+  
 
 }
 
 void gameLogic(){
   unsigned long startTime = micros();
 
+  if(!gameStarted){
+
+    // PLAY sign
+    gameState[2][5][0]=1;
+    gameState[2][5][1]=1;
+    gameState[2][5][2]=1;
+    gameState[2][5][3]=1;
+    gameState[2][5][4]=1;
+    gameState[3][5][1]=1;
+    gameState[3][5][2]=1;
+    gameState[3][5][3]=1;
+    gameState[4][5][2]=1;
+
+    // 20
+    gameState[0][0][5]=1;
+    gameState[1][0][5]=1;
+    gameState[2][0][5]=1;
+    gameState[3][0][5]=1;
+    gameState[4][0][5]=1;
+    gameState[5][0][5]=1;
+    gameState[2][1][5]=1;
+    gameState[3][1][5]=1;
+    gameState[5][1][5]=1;
+    gameState[0][2][5]=1;
+    gameState[1][2][5]=1;
+    gameState[2][2][5]=1;
+    gameState[3][2][5]=1;
+    gameState[5][2][5]=1;
+    gameState[0][3][5]=1;
+    gameState[3][3][5]=1;
+    gameState[5][3][5]=1;
+    gameState[0][4][5]=1;
+    gameState[1][4][5]=1;
+    gameState[2][4][5]=1;
+    gameState[3][4][5]=1;
+    gameState[4][4][5]=1;
+    gameState[5][4][5]=1;
+  }
+
   if(gameStarted){
-    
+
     // deleting old position of the snake:
     SnakeSegment* current = snake->head;
     while (current != NULL) {
