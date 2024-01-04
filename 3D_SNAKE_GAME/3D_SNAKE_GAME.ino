@@ -45,12 +45,14 @@ Snake* snake;
 
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
 bool buttonPressedLEFT, buttonPressedUP, buttonPressed3, buttonPressedRIGHT, buttonPressedDOWN, buttonPressed6, buttonPressedBACK, 
-     buttonPressed8, buttonPressed9, buttonPressedFRONT, buttonPressedSTART, buttonPressed12;
+     buttonPressed8, buttonPressedFAST, buttonPressedFRONT, buttonPressedSTART, buttonPressedSLOW;
 int delayTimeShort = 1;
 int delayTimeLong = 1500;
 
 int applesEaten = 0;
 bool gameStarted = false;
+
+int speed = 8;
 
 
 int counter = 0;
@@ -89,7 +91,7 @@ void setup() {
   configureIoExtenders();
   button1 = button2 = button3 = button4 = button5 = button6 = button7 = button8 = button9 = button10 = button11 = button12 = false;
   buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
-     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressedSTART = buttonPressed12 = false;
+     buttonPressed8 = buttonPressedFAST = buttonPressedFRONT = buttonPressedSTART = buttonPressedSLOW = false;
 
   digitalWrite(init, LOW);
   digitalWrite(clk, LOW);
@@ -229,18 +231,12 @@ void loop() {
   micro0(); sync();
   micro0(); sync();
   micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
-  micro0(); sync();
+
+  for (int i = 0; i < speed; i++){
+    micro0(); sync();
+    micro0(); sync();
+    micro0(); sync();
+  }
+ 
 
 }

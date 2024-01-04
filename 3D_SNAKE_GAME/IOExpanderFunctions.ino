@@ -172,14 +172,22 @@ void readAllButtons(){
   } 
   else{
     button12 = true;
-    buttonPressed12 = true;
+    buttonPressedSLOW = true;
+    speed ++;
+    if(speed > 15){
+      speed=15;
+    }
   }
   if ((dataA & 0x02) != 0) {
     button9 = false;
   } 
   else{
     button9 = true;
-    buttonPressed9 = true;
+    buttonPressedFAST = true;
+    speed --;
+    if(speed < 0){
+      speed = 0;
+    }
   }
   if ((dataB & 0x70) != 0) {
     button3 = false;
@@ -206,7 +214,7 @@ void readAllButtons(){
 
 void clearButtonsPressed(){
   buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
-     buttonPressed8 = buttonPressed9 = buttonPressedFRONT = buttonPressedSTART = buttonPressed12 = false;
+     buttonPressed8 = buttonPressedFAST = buttonPressedFRONT = buttonPressedSTART = buttonPressedSLOW = false;
 }
 
 void clearAllLEDs(){
