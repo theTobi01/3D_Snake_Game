@@ -140,57 +140,22 @@ void gameLogic(){
   unsigned long startTime = micros();
   // gameStarted = true;
 
-  if (gameStarted) {
-    // Prints the current position of the snake into the game board matrix
-    // for (int x = 0; x <7 ; x++) {
-    //   for (int y = 0; y < 7; y++) {
-    //     for (int z = 0; z < 7; z++) {
-
-          // // 1 - PRINT CURRENT POSITION OF THE SNAKE INTO THE GAMEBOARD
-          // for (int i = 0; i < sizeof(snake); i++) {
-          //   gameState[snake[i].x][snake[i].y][snake[i].z] = 1;
-          // }
-
-          // // 2 - CHECKS IF IN THE NEW POSITION THE SNAKE EATS THE APPLE
-          // //     IF SNAKE EATS APPLE -> 1) SPAWNS NEW APPLE IN THE GAMEBOARD + 2) GROW SNAKE
-          // if (checkAppleCollision()) {
-          //   createApple(); // Spawns a new apple
-          //   growSnake(); // Adds new segment to the snake's body
-          // }
-          
-          // // 3 - PRINT CURRENT GAMEBOARD
-          // /*
-          // printMatrix(); // Print the current game state
-          // readVirtualMatrix();
-          // */
-
-          // // 4 - MOVES THE SNAKE ACCORDING TO ITS CURRENT DIRECTION
-          // for (int i = 0 ; i < sizeof(snake); i++) { // Deletes previous snake position
-          //   gameState[snake[i].x][snake[i].y][snake[i].z] = 0;
-          // }
-          // moveSnake(snake); // Moves the snake to the new position
-
-          // bool over = gameOver();
-          // bool won = isgameWon();        
-    //     }
-    //   }
-  }
-
   if(gameStarted){
     
+    // deleting old position of the snake:
+    SnakeSegment* current = snake->head;
+    while (current != NULL) {
+      gameState[current->x][current->y][current->z] = 0;
 
-    for (int i = 0 ; i < 1 + applesEaten; i++) { // Deletes previous snake position
-
-      gameState[snake->head->x][snake->head->y][snake->head->z] = 0;
-      // gameState[snake[i].x][snake[i].y][snake[i].z] = 0;
-
-
-      if (checkAppleCollision()) {
-        Serial.println("Apple Collision");
-        createApple(); // Spawns a new apple
-        growSnake(snake); // Adds new segment to the snake's body
-      }
+      current = current->next;
     }
+
+    // if (checkAppleCollision()) {
+    //   Serial.println("Apple Collision");
+    //   createApple(); // Spawns a new apple
+    //   growSnake(snake); // Adds new segment to the snake's body
+    // }
+    
 
     // change direction if button was pressed
     changeDirection(snake);
@@ -208,13 +173,11 @@ void gameLogic(){
 
     // Update the LEDs
     if(!over && !won){
-      for (int i = 0; i < sizeof(snake); i++) { // add snake
-        gameState[snake->head->x][snake->head->y][snake->head->z] = 1;
-        if (checkAppleCollision()) {
-          Serial.println("Apple Collision");
-          createApple(); // Spawns a new apple
-          growSnake(snake); // Adds new segment to the snake's body
-        }
+      current = snake->head;
+      while (current != NULL) {
+        gameState[current->x][current->y][current->z] = 1;
+
+        current = current->next;
       }
     }
   }

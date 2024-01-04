@@ -50,14 +50,30 @@ void moveSnake(Snake* snake) {
 
 // Function to grow the snake by adding a new segment
 void growSnake(Snake* snake) {
+  // SnakeSegment* newSegment = (SnakeSegment*)malloc(sizeof(SnakeSegment));
+  // if (newSegment != NULL) {
+  //   newSegment->next = snake->head;
+  //   snake->head = newSegment;
+  // } else {
+  //   // Handle memory allocation failure
+  //   // You may want to print an error message or take other actions
+  // }
+
   SnakeSegment* newSegment = (SnakeSegment*)malloc(sizeof(SnakeSegment));
-  if (newSegment != NULL) {
-    newSegment->next = snake->head;
-    snake->head = newSegment;
-  } else {
-    // Handle memory allocation failure
-    // You may want to print an error message or take other actions
+  SnakeSegment* current = snake->head;
+  // going through the whole snake
+  while (current->next != NULL) {
+    current = current->next;
   }
+  current->next = newSegment;
+
+  // check which space is available for the new segment
+  if(0 < current->x){
+    newSegment->x = current->x - 1;
+    newSegment->y = current->y;
+    newSegment->z = current->z;
+  }
+
 }
 
 // Function to change the direction of the snake
