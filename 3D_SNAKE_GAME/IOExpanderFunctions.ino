@@ -128,6 +128,7 @@ void readAllButtons(){
   else{
     button8 = true;
     buttonPressed8 = true;
+    gameOverButton();
   }
   if ((dataB & 0x70) != 0) {
     button2 = false;

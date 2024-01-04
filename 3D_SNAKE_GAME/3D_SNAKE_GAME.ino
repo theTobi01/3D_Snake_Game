@@ -179,6 +179,7 @@ void gameLogic(){
 
     bool over = gameOver();
     bool won = isgameWon(); 
+   
 
     // Update the LEDs
     if(!over && !won){

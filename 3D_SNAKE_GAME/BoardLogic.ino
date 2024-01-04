@@ -9,14 +9,13 @@ bool isgameWon(){
    return true;
   }else
   return false;
-  }
+}
 
 bool gameOver() {  //Verifi's if gameOver by end of the board
 
   if (snake->head->x == 6 || snake->head->y == 6 || snake->head->z == 6 || snake->head->x == -1 || snake->head->y == -1 || snake->head->z == -1) {
         
-    allLED_ON();   
-    delay(300);
+    // allLED_ON();
     resetGameBoard();   
     destroySnake(snake);
     applesEaten = 0;
@@ -26,6 +25,16 @@ bool gameOver() {  //Verifi's if gameOver by end of the board
   else {
     return false;
   }
+}
+
+bool gameOverButton(){   
+    // allLED_ON();
+    resetGameBoard();   
+    destroySnake(snake);
+    applesEaten = 0;
+    gameStarted = false;
+    
+    return true;
 }
 
 
