@@ -54,6 +54,9 @@ bool gameStarted = false;
 
 int speed = 8;
 
+bool won = false;
+bool over = false;
+
 
 int counter = 0;
 
@@ -131,7 +134,7 @@ void gameLogic(){
     changeDirection(snake);
     
     moveSnake(snake); // Moves the snake to the new position
-    bool over = gameOver();
+    over = gameOver();
     if (checkAppleCollision()) {
       // Serial.println("Apple Collision");
       createApple(); // Spawns a new apple
@@ -139,7 +142,7 @@ void gameLogic(){
     }
 
 
-    bool won = isgameWon(); 
+    won = isgameWon(); 
    
 
     // Update the LEDs
@@ -152,7 +155,43 @@ void gameLogic(){
       }
     }
   }
+  else if(won){
+    resetGameBoard();
+
+    // G on all Layers
+    for(int i = 0; i < 6; i++){
+      gameState[1][1][i]=1;
+      gameState[1][2][i]=1;
+      gameState[1][3][i]=1;
+      gameState[1][4][i]=1;
+      gameState[2][0][i]=1;
+      gameState[2][5][i]=1;
+      gameState[3][0][i]=1;
+      gameState[3][3][i]=1;
+      gameState[3][5][i]=1;
+      gameState[4][1][i]=1;
+      gameState[4][3][i]=1;
+      gameState[4][4][i]=1;
+    }
+    
+
+    won = false;
+  }
+  else if(over){
+    resetGameBoard();
+
+    // L on the first Layer
+    gameState[2][1][5]=1;
+    gameState[2][2][5]=1;
+    gameState[2][3][5]=1;
+    gameState[2][4][5]=1;
+    gameState[3][4][5]=1;
+    gameState[4][4][5]=1;
+      
+    over = false;
+  }
   else{
+    resetGameBoard();
     // PLAY sign
     gameState[2][5][0]=1;
     gameState[2][5][1]=1;
@@ -217,9 +256,21 @@ void micro1(){ // -> 48ms
   gameLogic();
 }
 
+void micro2(){
+  setLEDs();
+  readAllButtons();
+
+}
+void micro3(){
+  setLEDs();
+  readAllButtons();
+
+}
 
 void loop() {
   micro1(); sync();
+  micro2(); sync();
+  micro3(); sync();
   micro0(); sync();
   micro0(); sync();
   micro0(); sync();
