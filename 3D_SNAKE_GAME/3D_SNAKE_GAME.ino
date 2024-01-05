@@ -117,8 +117,42 @@ void setup() {
 void gameLogic(){
   unsigned long startTime = micros();
 
-  if(!gameStarted){
+  if(gameStarted){
 
+    // deleting old position of the snake:
+    SnakeSegment* current = snake->head;
+    while (current != NULL) {
+      gameState[current->x][current->y][current->z] = 0;
+
+      current = current->next;
+    }
+  
+    // change direction if button was pressed
+    changeDirection(snake);
+    
+    moveSnake(snake); // Moves the snake to the new position
+
+    if (checkAppleCollision()) {
+      Serial.println("Apple Collision");
+      createApple(); // Spawns a new apple
+      growSnake(snake); // Adds new segment to the snake's body
+    }
+
+    bool over = gameOver();
+    bool won = isgameWon(); 
+   
+
+    // Update the LEDs
+    if(!over && !won){
+      current = snake->head;
+      while (current != NULL) {
+        gameState[current->x][current->y][current->z] = 1;
+
+        current = current->next;
+      }
+    }
+  }
+  else{
     // PLAY sign
     gameState[2][5][0]=1;
     gameState[2][5][1]=1;
@@ -154,42 +188,6 @@ void gameLogic(){
     gameState[3][4][5]=1;
     gameState[4][4][5]=1;
     gameState[5][4][5]=1;
-  }
-
-  if(gameStarted){
-
-    // deleting old position of the snake:
-    SnakeSegment* current = snake->head;
-    while (current != NULL) {
-      gameState[current->x][current->y][current->z] = 0;
-
-      current = current->next;
-    }
-  
-    // change direction if button was pressed
-    changeDirection(snake);
-    
-    moveSnake(snake); // Moves the snake to the new position
-
-    if (checkAppleCollision()) {
-      Serial.println("Apple Collision");
-      createApple(); // Spawns a new apple
-      growSnake(snake); // Adds new segment to the snake's body
-    }
-
-    bool over = gameOver();
-    bool won = isgameWon(); 
-   
-
-    // Update the LEDs
-    if(!over && !won){
-      current = snake->head;
-      while (current != NULL) {
-        gameState[current->x][current->y][current->z] = 1;
-
-        current = current->next;
-      }
-    }
   }
 
 
