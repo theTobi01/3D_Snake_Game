@@ -131,14 +131,14 @@ void gameLogic(){
     changeDirection(snake);
     
     moveSnake(snake); // Moves the snake to the new position
-
+    bool over = gameOver();
     if (checkAppleCollision()) {
       // Serial.println("Apple Collision");
       createApple(); // Spawns a new apple
       growSnake(snake); // Adds new segment to the snake's body
     }
 
-    bool over = gameOver();
+
     bool won = isgameWon(); 
    
 

@@ -1,7 +1,7 @@
 bool isgameWon(){
-  if (applesEaten > 20){
+  if (applesEaten > 3){
 
-     allLED_ON();   
+    allLED_ON();   
     resetGameBoard();   
     destroySnake(snake);
     applesEaten = 0;
@@ -12,19 +12,31 @@ bool isgameWon(){
 }
 
 bool gameOver() {  //Verifi's if gameOver by end of the board
+  SnakeSegment* current = snake->head;
 
   if (snake->head->x == 6 || snake->head->y == 6 || snake->head->z == 6 || snake->head->x == -1 || snake->head->y == -1 || snake->head->z == -1) {
-        
-    // allLED_ON();
+   // allLED_ON();    
     resetGameBoard();   
     destroySnake(snake);
     applesEaten = 0;
     gameStarted = false;
     return true;
-  } 
-  else {
-    return false;
-  }
+  }else{     
+    while (current->next != NULL) {
+            current = current->next;
+          if(snake->head->x == current->x && 
+            snake->head->y == current->y && 
+            snake->head->z == current->z){
+              
+            resetGameBoard();   
+            destroySnake(snake);
+            applesEaten = 0;
+            gameStarted = false;
+            return true;            
+          } 
+      }
+    } 
+  return false;
 }
 
 bool gameOverButton(){   
