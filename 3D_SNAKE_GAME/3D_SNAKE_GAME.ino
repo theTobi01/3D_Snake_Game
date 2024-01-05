@@ -133,7 +133,7 @@ void gameLogic(){
     moveSnake(snake); // Moves the snake to the new position
 
     if (checkAppleCollision()) {
-      Serial.println("Apple Collision");
+      // Serial.println("Apple Collision");
       createApple(); // Spawns a new apple
       growSnake(snake); // Adds new segment to the snake's body
     }
@@ -198,9 +198,9 @@ void gameLogic(){
   unsigned long endTime = micros();
   unsigned long executionTime = endTime - startTime;
 
-  Serial.print("Execution time GameLogic: ");
+  Serial.print("Ex Time: ");
   Serial.print(executionTime);
-  Serial.println(" microseconds");
+  Serial.println(" us");
 }
 
 // setLEDs ~ 15ms, readAllButtons ~ 3ms

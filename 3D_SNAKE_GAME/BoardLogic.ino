@@ -28,17 +28,12 @@ bool gameOver() {  //Verifi's if gameOver by end of the board
 }
 
 bool gameOverButton(){   
-    
-    // resetGameBoard();   
-    // destroySnake(snake);
-    // applesEaten = 0;
-    // gameStarted = false;
+  // moves snake head out of the game board so game over is caused on the next game cycle
+  snake->head->x = 6;
+  snake->head->y = 6;
+  snake->head->z = 6;
 
-    snake->head->x = 6;
-    snake->head->y = 6;
-    snake->head->z = 6;
-
-    return true;
+  return true;
 }
 
 

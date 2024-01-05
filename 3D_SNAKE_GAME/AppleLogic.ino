@@ -6,7 +6,7 @@ Apple createApple() { //Creates Apple
   isApplePositionInSnake();
 
   gameState[apple.x][apple.y][apple.z] = 1;
-  Serial.println("Apple Created");
+  // Serial.println("Apple Created");
   return apple;
 }
 
