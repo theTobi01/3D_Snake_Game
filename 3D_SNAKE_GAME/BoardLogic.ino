@@ -1,5 +1,5 @@
 bool isgameWon(){
-  if (applesEaten > 0){
+  if (applesEaten > 2){
 
     allLED_ON();   
     resetGameBoard();   

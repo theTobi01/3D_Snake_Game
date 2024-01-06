@@ -104,16 +104,13 @@ void setup() {
   TCCR1A = 0; // reset registers
   TCCR1B = 0;
   TCNT1 = 0; // preload avlue set to 0
-  OCR1A = 3125; // 20Hz -> Freq = 16MHz/256/compare value => compare Value = 16MHz/256/Freq
+  OCR1A = 1563; // 40Hz -> Freq = 16MHz/256/compare value => compare Value = 16MHz/256/Freq
   TCCR1B |= (1 << WGM12); // CTC mode
   TCCR1B |= (1 << CS12); // 256 prescaler
   TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt
   interrupts(); // enable all interrupts
 
   resetGameBoard();
-
-  
-  
 
 }
 
@@ -250,27 +247,16 @@ void micro0(){ // -> 18ms
   readAllButtons();
 }
 
-void micro1(){ // -> 48ms
+void micro1(){ // -> ~ 19ms
+  gameLogic(); // -> usually below 100us, some spikes to 600us
   setLEDs();
   readAllButtons();
-  gameLogic();
-}
-
-void micro2(){
-  setLEDs();
-  readAllButtons();
-
-}
-void micro3(){
-  setLEDs();
-  readAllButtons();
-
 }
 
 void loop() {
   micro1(); sync();
-  micro2(); sync();
-  micro3(); sync();
+  micro0(); sync();
+  micro0(); sync();
   micro0(); sync();
   micro0(); sync();
   micro0(); sync();
