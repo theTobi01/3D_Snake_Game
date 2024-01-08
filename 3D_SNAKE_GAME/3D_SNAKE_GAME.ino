@@ -52,7 +52,7 @@ bool buttonPressedLEFT, buttonPressedUP, buttonPressedMOREAPPLESTOWIN, buttonPre
 int delayTimeShort = 1;
 int delayTimeLong = 1500;
 
-int appleCounterToWin = 20;
+int appleCounterToWin = 5;
 
 int applesEaten = 0;
 bool gameStarted = false;
