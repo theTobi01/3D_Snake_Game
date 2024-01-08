@@ -43,11 +43,16 @@ Apple apple;
 // Snake* snake;
 Snake* snake;
 
+//BUTTON 3 == BUTTONPRESSEDMOREAPPLESTOWIN   
+//BUTTON 6== BUTTONPRESSEDLESSAPPLESTOWIN 
+
 bool button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
-bool buttonPressedLEFT, buttonPressedUP, buttonPressed3, buttonPressedRIGHT, buttonPressedDOWN, buttonPressed6, buttonPressedBACK, 
+bool buttonPressedLEFT, buttonPressedUP, buttonPressedMOREAPPLESTOWIN, buttonPressedRIGHT, buttonPressedDOWN, buttonPressedLESSAPPLESTOWIN, buttonPressedBACK, 
      buttonPressed8, buttonPressedFAST, buttonPressedFRONT, buttonPressedSTART, buttonPressedSLOW;
 int delayTimeShort = 1;
 int delayTimeLong = 1500;
+
+int appleCounterToWin = 20;
 
 int applesEaten = 0;
 bool gameStarted = false;
@@ -93,7 +98,7 @@ void setup() {
   configurePins();
   configureIoExtenders();
   button1 = button2 = button3 = button4 = button5 = button6 = button7 = button8 = button9 = button10 = button11 = button12 = false;
-  buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
+  buttonPressedLEFT = buttonPressedUP = buttonPressedMOREAPPLESTOWIN = buttonPressedRIGHT = buttonPressedDOWN = buttonPressedLESSAPPLESTOWIN = buttonPressedBACK = 
      buttonPressed8 = buttonPressedFAST = buttonPressedFRONT = buttonPressedSTART = buttonPressedSLOW = false;
 
   digitalWrite(init, LOW);

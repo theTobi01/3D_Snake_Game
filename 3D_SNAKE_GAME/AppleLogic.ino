@@ -10,6 +10,21 @@ Apple createApple() { //Creates Apple
   return apple;
 }
 
+int reduceApplesToWin(){
+  if(appleCounterToWin > 1){
+    appleCounterToWin = appleCounterToWin - 1;
+  }
+  return appleCounterToWin;
+}
+
+int moreApplesToWin(){
+  if(appleCounterToWin < 50){
+    appleCounterToWin = appleCounterToWin + 1;
+  }
+  return appleCounterToWin;
+}
+
+
 bool isApplePositionInSnake() {
     if (apple.x == snake->head->x && 
         apple.y == snake->head->y && 

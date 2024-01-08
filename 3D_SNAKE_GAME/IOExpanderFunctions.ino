@@ -194,15 +194,21 @@ void readAllButtons(){
     button3 = false;
   } 
   else{
+    if(!button3){ // only execute if button wasn't pressed in last run of function -> only add one apple per button press
+      buttonPressedMOREAPPLESTOWIN = true;
+      moreApplesToWin();
+    }
     button3 = true;
-    buttonPressed3 = true;
   }
   if ((dataB & 0x80) != 0) {
     button6 = false;
   } 
   else{
+    if(!button6){
+      buttonPressedLESSAPPLESTOWIN = true;
+      reduceApplesToWin();
+    }
     button6 = true;
-    buttonPressed6 = true;
   }
 
   // unsigned long endTime = micros();
@@ -214,7 +220,7 @@ void readAllButtons(){
 }
 
 void clearButtonsPressed(){
-  buttonPressedLEFT = buttonPressedUP = buttonPressed3 = buttonPressedRIGHT = buttonPressedDOWN = buttonPressed6 = buttonPressedBACK = 
+  buttonPressedLEFT = buttonPressedUP = buttonPressedMOREAPPLESTOWIN = buttonPressedRIGHT = buttonPressedDOWN = buttonPressedLESSAPPLESTOWIN = buttonPressedBACK = 
      buttonPressed8 = buttonPressedFAST = buttonPressedFRONT = buttonPressedSTART = buttonPressedSLOW = false;
 }
 
